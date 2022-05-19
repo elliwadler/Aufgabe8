@@ -27,9 +27,13 @@ public class UserController {
 
     //LANDINGPAGE
     @GetMapping("/")
-    public String index(Model model) {
+    public String index() {
         return "hello";
 
+    }
+    @GetMapping("/logout")
+    public String logout() {
+        return "hello";
     }
 
     //LOGIN INFORMATION
@@ -63,9 +67,11 @@ public class UserController {
     @GetMapping("/WelcomeStudent")
     public String welcomeStudent(Model model){
         model.addAttribute("user", user);
-       // ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
-       // projects = projectRepository.findProjectByStudentID(user.getId());
-       // model.addAttribute("projects", projects);
+
+        ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
+        projects = projectRepository.findProjectByStudentID(user.getId());
+        model.addAttribute("projects", projects);
+
         return "student";
     }
 
@@ -80,6 +86,10 @@ public class UserController {
     @GetMapping("/WelcomeAssistent")
     public String welcomeAssistent(Model model){
         model.addAttribute("user", user);
+
+        ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
+        projects = projectRepository.findProjectByLeaderID(user.getId());
+        model.addAttribute("projects", projects);
 
         return "asi";
     }

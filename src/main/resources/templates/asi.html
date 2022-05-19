@@ -7,5 +7,26 @@
 <body>
 <h2>Welcome Asisstent</h2>
 <p th:text="${user.toString()}"></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>ProjectName</th>
+        <th>Description</th>
+        <th>Deadline</th>
+        <th>ExamDate</th>
+        <th>student</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project : ${projects}">
+        <td th:text="${project.getName()}"></td>
+        <td th:text="${project.getDescription()}"></td>
+        <td th:text="${project.getDeadline()}"></td>
+        <td th:text="${project.getExamDate()}"></td>
+        <td th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

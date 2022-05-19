@@ -1,10 +1,8 @@
 package com.example.aufgabe8_wadler.Tables;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Set;
 
 @Entity
@@ -43,26 +41,21 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String lastName, String firstName, String username, String password, int role, int level) {
-        this.id = id;
+    public User(String lastName, String firstName, String username, String password, int role, int level) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.username = username;
         this.password = password;
         this.role = role;
         this.level = level;
-        this.maxB = null;
-        this.maxP = null;
-        this.maxM = null;
     }
 
-    public User(String lastName, String firstName, String username, String password, int role, int level, int maxP, int maxB, int maxM) {
+    public User(String lastName, String firstName, String username, String password, int role, int maxP, int maxB, int maxM) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.level = null;
         this.maxP=maxP;
         this.maxB=maxB;
         this.maxM =maxM;
@@ -128,17 +121,17 @@ public class User {
         this.password = password;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
     public void setLevel(int level) {
-        if(this.role == 1) {
+        if(this.role == 3) {
             this.level = level;
         }
     }
 
-    public String getMaxP() {
+    public int getMaxP() {
         return maxP;
     }
 
@@ -148,22 +141,22 @@ public class User {
         }
     }
 
-    public String getMaxB() {
+    public int getMaxB() {
         return maxB;
     }
 
     public void setMaxB(int maxB) {
-        if(this.role != 1) {
+        if(this.role != 3) {
             this.maxB = maxB;
         }
     }
 
-    public String getMaxM() {
+    public int getMaxM() {
         return maxM;
     }
 
     public void setMaxM(int maxM) {
-        if(this.role != 1) {
+        if(this.role != 3) {
             this.maxM = maxM;
         }
     }

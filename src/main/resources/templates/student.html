@@ -7,10 +7,29 @@
 <h2>Welcome Student</h2>
 <p th:text="${user.toString()}"></p>
 
+<table>
+<thead>
+<tr>
+    <th>ProjectName</th>
+    <th>Description</th>
+    <th>Deadline</th>
+    <th>ExamDate</th>
+    <th>leader</th>
+</tr>
+</thead>
 <tbody>
-<!--<tr th:each="project : ${projects}">-->
-<!--    <td th:text="${project.getName()}"></td>-->
+<tr th:each="project : ${projects}">
+    <td th:text="${project.getName()}"></td>
+    <td th:text="${project.getDescription()}"></td>
+    <td th:text="${project.getDeadline()}"></td>
+    <td th:text="${project.getExamDate()}"></td>
+    <td th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
 </tr>
 </tbody>
+</table>
+
+<form action="/logout" method="get">
+    <input id="submit" type="submit" value="Logout" />
+</form>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.aufgabe8_wadler.Tables;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -19,8 +20,8 @@ public class Project {
     private Long id;
     private String name;
     private String description;
-    private Date deadline;
-    private Date examDate;
+    private LocalDate deadline;
+    private LocalDate examDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -36,7 +37,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, Date deadline, Date examDate, User student, User leader, int type){
+    public Project(String name, String description, LocalDate deadline, LocalDate examDate, User student, User leader, int type){
         this.name = name;
         this.description = description;
         this.deadline = deadline;
@@ -70,19 +71,19 @@ public class Project {
         this.description = description;
     }
 
-    public Date getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
-    public Date getExamDate() {
+    public LocalDate getExamDate() {
         return examDate;
     }
 
-    public void setExamDate(Date examDate) {
+    public void setExamDate(LocalDate examDate) {
         this.examDate = examDate;
     }
 
