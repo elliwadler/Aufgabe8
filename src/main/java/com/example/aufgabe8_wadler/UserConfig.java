@@ -26,8 +26,10 @@ public class UserConfig {
             Project P1 = new Project("Project1", "blbl", LocalDate.now(), LocalDate.now(), Karl, Elli,1 );
             Project P2 = new Project("Project2", "blbl", LocalDate.now(), LocalDate.now(), Karl, Elli,2 );
             Project P3 = new Project("Project3", "Aquarium sauber machen", LocalDate.now(), LocalDate.now(), Maria, Thomas,3 );
+            Project P4 = new Project("Project4", "af", LocalDate.now(), LocalDate.now(), Elli,1 );
+            Project P5 = new Project("Project5", "afds", LocalDate.now(), LocalDate.now(), Thomas,2 );
 
-            projectRepository.saveAll(List.of(P1,P2,P3));
+            projectRepository.saveAll(List.of(P1,P2,P3, P4, P5));
 
 
         };

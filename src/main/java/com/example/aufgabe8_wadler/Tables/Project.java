@@ -23,8 +23,8 @@ public class Project {
     private LocalDate deadline;
     private LocalDate examDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "user_id", nullable = true)
     private User student;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -43,6 +43,15 @@ public class Project {
         this.deadline = deadline;
         this.examDate = examDate;
         this.student = student;
+        this.leader = leader;
+        this.type = type;
+    }
+
+    public Project(String name, String description, LocalDate deadline, LocalDate examDate, User leader, int type){
+        this.name = name;
+        this.description = description;
+        this.deadline = deadline;
+        this.examDate = examDate;
         this.leader = leader;
         this.type = type;
     }

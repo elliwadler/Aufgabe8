@@ -24,12 +24,20 @@
     <td th:text="${project.getDeadline()}"></td>
     <td th:text="${project.getExamDate()}"></td>
     <td th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
+    <td><form action="#" th:action="@{/deleteProject/{id}(id=${project.id})}" th:object="${project}" method="post" >
+        <p> <input  type="submit"   value="submit"></p>
+    </form>
+    </td>
 </tr>
 </tbody>
 </table>
 
 <form action="/logout" method="get">
     <input id="submit" type="submit" value="Logout" />
+</form>
+
+<form action="/findOpenProject" method="get">
+    <input id="submit1" type="submit" value="Find new project" />
 </form>
 </body>
 </html>

@@ -75,6 +75,44 @@ public class UserController {
         return "student";
     }
 
+    @GetMapping("/findOpenProject")
+    public String findOpenProject(Model model) {
+        ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
+        projects = projectRepository.findOpenProjects();
+        model.addAttribute("projects", projects);
+
+        return "OpenProjects";
+    }
+
+    @PostMapping("/signProject/{id}")
+    public String SignProject(@PathVariable("id") long id, Model model) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
+
+        /**
+         @TODO fix to update
+         **/
+        projectRepository.delete(projectRepository.getById(id));
+        project.setStudent(user);
+        projectRepository.save(project);
+
+        return "redirect:/WelcomeStudent";
+    }
+
+    @PostMapping("/deleteProject/{id}")
+    public String DeleteProject(@PathVariable("id") long id, Model model) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
+
+        System.out.println(project.getName());
+        /**
+         @TODO fix to update
+         **/
+        projectRepository.delete(projectRepository.getById(id));
+
+        return "redirect:/WelcomeStudent";
+    }
+
     //ADMIN WELCOMEPAGE
     @GetMapping("/WelcomeAdmin")
     public String welcomeAdmin(Model model){

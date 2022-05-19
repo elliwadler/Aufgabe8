@@ -15,7 +15,7 @@ public class ProjectService {
     public ProjectService(ProjectRepository projectRepository){
         this.projectRepository = projectRepository;
     }
-    public List<Project> hello(){
+    public List<Project> all(){
         return projectRepository.findAll();
     }
     public void addNewProject(Project project){
@@ -26,7 +26,7 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
-    public void deleteStudent(Long id) {
+    public void deleteProject(Long id) {
         boolean exists = projectRepository.existsById(id);
         if(!exists){
             throw new IllegalStateException(("student with id " +id+ "does not exist"));
