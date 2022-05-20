@@ -3,6 +3,8 @@ package com.example.aufgabe8_wadler.Tables;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -22,7 +24,11 @@ public class User {
     private Long id;
     private String lastName;
     private String firstName;
+
+    @NotNull(message = "username cannot be null!")
+    @Column(unique=true)
     private String username;
+
     private String password;
     private int role;
     private int level;

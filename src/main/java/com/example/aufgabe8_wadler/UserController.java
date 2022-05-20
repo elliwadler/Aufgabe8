@@ -5,9 +5,11 @@ import com.example.aufgabe8_wadler.Tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 
@@ -155,8 +157,35 @@ public class UserController {
     }
 
     @GetMapping("/newStudent")
-    public String NewStudent() {
+    public String NewStudent(Model model) {
+        User newUser =new User();
+        model.addAttribute("user", newUser);
         return "NewStudent";
+    }
+
+/*    @PostMapping("/saveStudent")
+    public String saveStudent(@RequestParam String username, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String password) {
+        try {
+            User student = new User(lastName, firstName, username, password, 3, 1);
+            userService.addNewUser(student);
+        }
+        catch (IllegalStateException e){
+            return "errors/saveStudent";
+        }
+        return "redirect:/WelcomeAdmin";
+    }*/
+
+    @PostMapping("/saveStudent")
+    public String saveStudent(@Valid @ModelAttribute("user") User newUser){
+        try {
+            userService.addNewUser(newUser);
+        }
+        catch(IllegalStateException e){
+            return "redirect:/newStudent";
+        }
+
+
+        return "redirect:/WelcomeAdmin";
     }
 
     //ASSISTENT WELCOMEPAGE
