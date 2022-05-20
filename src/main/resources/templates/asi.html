@@ -8,6 +8,18 @@
 
 <h2 th:text="'Welcome ' + ${user.getFirstName()}"></h2></h2>
 
+<form action="/saveSettings" method="post">
+    <label for="maxP">Max Projects:</label>
+    <input type="number" id="maxP" name="maxP" min="0" max="10" th:value="${user.getMaxP()}">
+
+    <label for="maxB">Max Bachelor thesis:</label>
+    <input type="number" id="maxB" name="maxB" min="0" max="10" th:value="${user.getMaxB()}">
+
+    <label for="maxM">Max Master thesis:</label>
+    <input type="number" id="maxM" name="maxM" min="0" max="10" th:value="${user.getMaxM()}">
+
+        <input id="submit1" type="submit" value="Save Settings" />
+</form>
 <table>
     <thead>
     <tr>
@@ -32,12 +44,22 @@
         </div>
 
         <td th:if="${project.getStudent !=  null}" th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>
-
+        <td><form action="#" th:action="@{/updateProject/{id}(id=${project.id})}" th:object="${project}" method="get" >
+            <p> <input  type="submit"   value="update"></p>
+        </form>
+        </td>
+        <td><form action="#" th:action="@{/deleteProject1/{id}(id=${project.id})}" th:object="${project}" method="post" >
+            <p> <input  type="submit"   value="delete"></p>
+        </form>
+        </td>
     </tr>
     </tbody>
 </table>
 <form action="/newProject" method="get">
     <input id="submit" type="submit" value="Add new Project" />
+</form>
+<form action="/logout" method="get">
+    <input id="submit" type="submit" value="Logout" />
 </form>
 </body>
 </html>

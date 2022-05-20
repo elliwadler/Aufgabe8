@@ -30,6 +30,14 @@
             <td th:case="3">Master thesis</td>
         </div>
         <td th:if="${project.getStudent !=  null}" th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>
+        <td><form action="#" th:action="@{/updateProject/{id}(id=${project.id})}" th:object="${project}" method="get" >
+            <p> <input  type="submit"   value="update"></p>
+        </form>
+        </td>
+        <td><form action="#" th:action="@{/deleteProject1/{id}(id=${project.id})}" th:object="${project}" method="post" >
+            <p> <input  type="submit"   value="delete"></p>
+        </form>
+        </td>
     </tr>
     </tbody>
 </table>

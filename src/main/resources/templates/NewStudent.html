@@ -1,35 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/add.css"/>
 </head>
 <body>
-<h2>Add new Student</h2>
+<div class="container">
 
-<form action="#" th:action="@{/saveStudent}" th:object="${user}" method="post">
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td><input type="text" th:field="*{username}" autofocus="autofocus" required="required"/></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input type="text" th:field="*{lastName}"/></td>
-        </tr>
-        <tr>
-            <td>First Name:</td>
-            <td><input type="text" th:field="*{firstName}"/></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="text" th:field="*{password}" required="required"/></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Submit"/></td>
-        </tr>
-    </table>
-</form>
+    <div class="content">
 
+        <form action="#" th:action="@{/saveStudent}" th:object="${user}" method="post">
+            <table>
+                <tr>
+                    <td colspan="2"> <h2>Create a new Student</h2></td>
+                </tr>
+                <tr>
+                    <td>Username:</td>
+                    <td><input type="text" th:field="*{username}" autofocus="autofocus" required="required"/></td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td><input type="text" th:field="*{lastName}"/></td>
+                </tr>
+                <tr>
+                    <td>First Name:</td>
+                    <td><input type="text" th:field="*{firstName}"/></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="text" th:field="*{password}" required="required"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input  class="btn"  type="submit" value="Save"/></td>
+
+                </tr>
+                <tr>
+                    <td colspan="2"> <input action="action"  class="btn"  type="button" onclick="history.go(-1);" value="back"/></td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+    </div>
 </body>
 </html>

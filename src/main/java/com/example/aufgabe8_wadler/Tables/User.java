@@ -47,12 +47,12 @@ public class User {
     public User() {
     }
 
-    public User(String lastName, String firstName, String username, String password, int role, int level) {
+    public User(String lastName, String firstName, String username, String password, int level) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.role = 3;
         this.level = level;
     }
 
@@ -61,7 +61,12 @@ public class User {
         this.firstName = firstName;
         this.username = username;
         this.password = password;
-        this.role = role;
+        if(role==1||role==2) {
+            this.role = role;
+        }
+        else{
+            this.role=2;
+        }
         this.maxP=maxP;
         this.maxB=maxB;
         this.maxM =maxM;

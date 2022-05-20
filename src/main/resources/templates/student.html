@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Title</title>
+    <title>LOGIN</title>
+
 </head>
 <body>
 <h2 th:text="'Welcome ' + ${user.getFirstName()}"></h2></h2>
@@ -13,7 +14,8 @@
         <th>Description</th>
         <th>Deadline</th>
         <th>ExamDate</th>
-        <th>leader</th>
+        <th>Leader</th>
+        <th>Type</th>
     </tr>
     </thead>
     <tbody>
@@ -39,6 +41,7 @@
 <form action="/logout" method="get">
     <input id="submit" type="submit" value="Logout" />
 </form>
+
 
 <form action="/findOpenProject" method="get">
     <input id="submit1" type="submit" value="Find new project" />

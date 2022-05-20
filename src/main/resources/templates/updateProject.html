@@ -8,7 +8,7 @@
     function val() {
         var div = document.getElementById("switch");
         var d= div.getElementsByTagName('p')[0].innerHTML;
-        alert(d);
+
         if (d === "Master thesis") {
             document.getElementById("exam").disabled = false;
             document.getElementById("des").disabled = false;
@@ -77,6 +77,6 @@
         </tr>
     </table>
 </form>
-
+<input action="action" type="button" onclick="history.go(-1);" value="back"/>
 </body>
 </html>

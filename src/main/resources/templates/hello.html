@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login page</title>
-    <link th:href="@{/public/style.css}" rel="stylesheet" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/loginStyle.css" />
 </head>
 <body>
-<div id="container">
-    <h2>Login page</h2>
 
-    <form action="#" th:action="@{/test}"  method="post">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" autofocus="autofocus" />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" />
-        <input id="submit" type="submit" value="Log in" />
-    </form>
-    </form>
+<div class="container">
+
+    <div class="login-content">
+        <form action="#" th:action="@{/test}"  method="post" class="form-login">
+            <h2 class="title">Welcome</h2>
+            <div class="input-div one">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                     <h5>Username</h5>
+                     <input required="required" type="text" class="input" id="username" name="username" />
+                </div>
+            </div>
+            <div class="input-div pass">
+                <div class="i">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                     <h5>Password</h5>
+                    <input required="required" type="password" class="input" id="password" name="password"/>
+                </div>
+            </div>
+            <input id="submit"  class="btn" type="submit" value="Login" />
+            <a href="#">Forgot Password?</a>
+        </form>
+    </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/css/js/Login.js"></script>
 </body>
 </html>
