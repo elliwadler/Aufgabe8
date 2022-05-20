@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<table id="projects">
+    <thead>
+    <tr>
+        <th>ProjectName</th>
+        <th>Description</th>
+        <th>Deadline</th>
+        <th>ExamDate</th>
+        <th>Type</th>
+        <th>Student</th>
+        <th>Leader</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project : ${projects}">
+        <td th:text="${project.getName()}"></td>
+        <td th:text="${project.getDescription()}"></td>
+        <td th:text="${project.getDeadline()}"></td>
+        <td th:text="${project.getExamDate()}"></td>
+       <td><div th:switch="${project.getType()}">
+            <p th:case="1">Project</p>
+            <p th:case="2">Bachelor thesis</p>
+            <p th:case="3">Master thesis</p>
+        </div></td>
+        <td th:if="${project.getStudent !=  null}" th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>
+        <td  th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
+        <td><form action="#" th:action="@{/updateProject/{id}(id=${project.id})}" th:object="${project}" method="get" >
+            <p> <input  type="submit"   value="update"></p>
+        </form>
+        </td>
+        <td><form action="#" th:action="@{/deleteProject1/{id}(id=${project.id})}" th:object="${project}" method="post" >
+            <p> <input  type="submit"   value="delete"></p>
+        </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

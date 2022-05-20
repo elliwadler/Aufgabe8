@@ -23,15 +23,18 @@ public class UserConfig {
             User Thomas = new User( "Meier", "Thomas", "meierth", "0502", 2,3,3,3);
             userRepository.saveAll(List.of(Karl,Elli, Thomas, Maria));
 
-            Project P1 = new Project("Project1", "blbl", LocalDate.now(), LocalDate.now(), Karl, Elli,1 );
-            Project P2 = new Project("Project2", "blbl", LocalDate.now(), LocalDate.now(), Elli,2 );
-            Project P3 = new Project("Project3", "Aquarium sauber machen", LocalDate.now(), LocalDate.now(), Maria, Thomas,3 );
-            Project P4 = new Project("Project4", "af", LocalDate.now(), LocalDate.now(), Elli,1 );
-            Project P5 = new Project("Project5", "afds", LocalDate.now(), LocalDate.now(), Thomas,2 );
-            Project P6 = new Project("Project6", "ka", LocalDate.now(), LocalDate.now(), Thomas,3 );
-            Project P7 = new Project("Project7", "af", LocalDate.now(), LocalDate.now(), Elli,3);
-            Project P8 = new Project("Project8", "afds", LocalDate.now(), LocalDate.now(), Thomas,2 );
+            Project P1 = new Project("Project1", "Test1", LocalDate.now(), LocalDate.now(), Elli );
+            Project P2 = new Project("Project2", "Test2", LocalDate.now(), Elli );
+            Project P3 = new Project("Project3", "Test3", LocalDate.now(),  Thomas);
+            Project P4 = new Project("Project4",  LocalDate.now(), Elli);
+            Project P5 = new Project("Project5", "Test5", LocalDate.now(), LocalDate.now(), Thomas );
+            Project P6 = new Project("Project6",  LocalDate.now(), Thomas );
+            Project P7 = new Project("Project7", "Test7", LocalDate.now(), LocalDate.now(), Elli);
+            Project P8 = new Project("Project8", "Test8", LocalDate.now(),  Thomas);
 
+
+            P6.setStudent(Karl);
+            P3.setStudent(Maria);
 
             projectRepository.saveAll(List.of(P1,P2,P3, P4, P5, P6, P7, P8));
 

@@ -41,23 +41,28 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, LocalDate deadline, LocalDate examDate, User student, User leader, int type){
+    public Project(String name, String description, LocalDate deadline, LocalDate examDate, User leader){
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.examDate = examDate;
-        this.student = student;
         this.leader = leader;
-        this.type = type;
+        this.type = 3;
     }
 
-    public Project(String name, String description, LocalDate deadline, LocalDate examDate, User leader, int type){
+    public Project(String name, String description, LocalDate deadline, User leader){
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.examDate = examDate;
         this.leader = leader;
-        this.type = type;
+        this.type = 2;
+    }
+    public Project(String name,  LocalDate deadline,  User leader){
+        this.name = name;
+        this.deadline = deadline;
+        this.leader = leader;
+        this.type = 1;
     }
 
     public Long getId() {

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript" >
+    function val() {
+        var div = document.getElementById("switch");
+        var d= div.getElementsByTagName('p')[0].innerHTML;
+        alert(d);
+        if (d === "Master thesis") {
+            document.getElementById("exam").disabled = false;
+            document.getElementById("des").disabled = false;
+        }
+        else if(d =="Bachelor thesis") {
+            document.getElementById("exam").disabled = true;
+            document.getElementById("des").disabled = false;
+        }
+        else {
+            document.getElementById("exam").disabled = true;
+            document.getElementById("des").disabled = true;
+        }
+    }
+    function TDate() {
+        var Deadline = document.getElementById("deadline").value;
+        var ExamDate = document.getElementById("exam").value;
+        var ToDate = new Date();
+
+        if (new Date(Deadline).getTime() < ToDate.getTime()) {
+            alert("The Deadline must be bigger than today's date");
+            document.getElementById("deadline").value = "";
+        }
+        if (new Date(ExamDate).getTime() < ToDate.getTime()) {
+            alert("The Exam Date must be bigger than today's date");
+            document.getElementById("exam").value = "";
+        }
+
+    }
+</script>
+<body onload="val()">
+<h2>Update Project</h2>
+
+
+<form action="#" th:action="@{/updateProject1/{id}(id=${project.id})}" th:object="${project}" method="post">
+    <table>
+        <tr>
+            <td>Type:</td>
+            <td>
+                <div th:switch="${project.getType()}" id="switch">
+                    <p th:case="1">Project</p>
+                    <p th:case="2">Bachelor thesis</p>
+                    <p th:case="3">Master thesis</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" id="name" name="name" th:value="${project.getName()}"autofocus="autofocus" required="required"/></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input disabled="true" id="des" name="des" type="text" th:value="${project.getDescription()}"/></td>
+        </tr>
+        <tr>
+            <td>Deadline:</td>
+            <td><input type="date" id="deadline" name="deadline" th:value="${project.getDeadline()}" onchange="TDate()"/></td>
+        </tr>
+        <div id='display' style="display: none;">
+            <tr>
+                <td>Exam Date:</td>
+                <td><input disabled="true" id="exam" name="exam" type="date"  th:value="${project.getExamDate()}" onchange="TDate()" required/></td>
+            </tr>
+        </div>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

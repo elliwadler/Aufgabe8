@@ -3,14 +3,17 @@ package com.example.aufgabe8_wadler;
 import com.example.aufgabe8_wadler.Tables.Project;
 import com.example.aufgabe8_wadler.Tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -105,7 +108,7 @@ public class UserController {
     }
 
     @PostMapping("/signProject/{id}")
-    public String SignProject(@PathVariable("id") long id, Model model) {
+    public String signProject(@PathVariable("id") long id, Model model) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
 
@@ -120,7 +123,7 @@ public class UserController {
     }
 
     @PostMapping("/deleteProject/{id}")
-    public String DeleteProject(@PathVariable("id") long id, Model model) {
+    public String doneProject(@PathVariable("id") long id, Model model) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
 
@@ -141,8 +144,45 @@ public class UserController {
 
         return "redirect:/WelcomeStudent";
     }
+    @PostMapping("/deleteProject1/{id}")
+    public String deleteProject(@PathVariable("id") long id, Model model) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
+
+        projectRepository.deleteById(id);;
+
+        return "redirect:/findProjects";
+    }
+
+    @GetMapping("/updateProject/{id}")
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("project", project);
+        return "updateProject";
+    }
+    @PostMapping("/updateProject1/{id}")
+    public String updateProject(@PathVariable("id") long id, @RequestParam String name, @RequestParam(required=false,name="des") String des, @RequestParam String deadline, @RequestParam(required=false,name="exam")  String exam) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
+
+        /**
+         @TODO move Project not delete
+         **/
+        project.setName(name);
+        project.setDescription(des);
 
 
+        project.setDeadline(LocalDate.parse(deadline));
+        project.setExamDate(LocalDate.parse(exam));
+
+        System.out.println(deadline);
+
+        projectRepository.save(project);
+
+
+        return "redirect:/WelcomeAdmin";
+    }
 
     //ADMIN WELCOMEPAGE
     @GetMapping("/WelcomeAdmin")
@@ -157,7 +197,7 @@ public class UserController {
     }
 
     @GetMapping("/newStudent")
-    public String NewStudent(Model model) {
+    public String newStudent(Model model) {
         User newUser =new User();
         model.addAttribute("user", newUser);
         return "NewStudent";
@@ -189,12 +229,20 @@ public class UserController {
     }
 
     @GetMapping("/newProject")
-    public String NewProject(Model model) {
+    public String newProject(Model model) {
         Project newProject =new Project();
         model.addAttribute("project", newProject);
         return "NewProject";
     }
 
+    @GetMapping("/findProjects")
+    public String findProjects(Model model) {
+        List<Project> projects = new ArrayList<>();
+        projects =  projectRepository.findAll();
+        model.addAttribute("projects", projects);
+
+        return "FindProjects";
+    }
     @PostMapping("/saveProject")
     public String saveProject(@ModelAttribute("project") Project newProject){
         try {
