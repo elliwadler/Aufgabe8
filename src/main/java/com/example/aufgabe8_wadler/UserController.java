@@ -188,6 +188,27 @@ public class UserController {
         return "redirect:/WelcomeAdmin";
     }
 
+    @GetMapping("/newProject")
+    public String NewProject(Model model) {
+        Project newProject =new Project();
+        model.addAttribute("project", newProject);
+        return "NewProject";
+    }
+
+    @PostMapping("/saveProject")
+    public String saveProject(@ModelAttribute("project") Project newProject){
+        try {
+            newProject.setLeader(user);
+            projectRepository.save(newProject);
+        }
+        catch(IllegalStateException e){
+            return "redirect:/newProject";
+        }
+
+
+        return "redirect:/WelcomeAdmin";
+    }
+
     //ASSISTENT WELCOMEPAGE
     @GetMapping("/WelcomeAssistent")
     public String welcomeAssistent(Model model){

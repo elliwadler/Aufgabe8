@@ -1,5 +1,7 @@
 package com.example.aufgabe8_wadler.Tables;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
@@ -20,7 +22,9 @@ public class Project {
     private Long id;
     private String name;
     private String description;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate examDate;
 
     @OneToOne(fetch = FetchType.LAZY, optional = true)

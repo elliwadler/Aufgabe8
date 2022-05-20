@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript">
+    function val() {
+        const d = document.getElementById("type").value;
+        if (d === "3") {
+            document.getElementById("exam").disabled = false;
+            document.getElementById("des").disabled = false;
+        }
+        else if(d =="2") {
+            document.getElementById("exam").disabled = true;
+            document.getElementById("des").disabled = false;
+        }
+        else {
+            document.getElementById("exam").disabled = true;
+            document.getElementById("des").disabled = true;
+        }
+    }
+    function TDate() {
+        var Deadline = document.getElementById("deadline").value;
+        var ExamDate = document.getElementById("exam").value;
+        var ToDate = new Date();
+
+        if (new Date(Deadline).getTime() < ToDate.getTime()) {
+            alert("The Deadline must be bigger than today's date");
+            document.getElementById("deadline").value = "";
+        }
+        if (new Date(ExamDate).getTime() < ToDate.getTime()) {
+            alert("The Exam Date must be bigger than today's date");
+            document.getElementById("exam").value = "";
+        }
+
+    }
+</script>
+<body>
+<h2>Add new Project</h2>
+
+<form action="#" th:action="@{/saveProject}" th:object="${project}" method="post">
+    <table>
+        <tr>
+            <td>Type:</td>
+            <td><select id="type" th:field="*{type}" onchange="val()">
+                <option value="1">Project</option>
+                <option value="2">Bachelor thesis</option>
+                <option value="3">Master thesis</option>>
+            </select></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}" autofocus="autofocus" required="required"/></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input disabled="true" id="des" type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td>Deadline:</td>
+            <td><input type="date" id="deadline" th:field="*{deadline}" onchange="TDate()"/></td>
+        </tr>
+        <div id='display' style="display: none;">
+        <tr>
+            <td>Exam Date:</td>
+            <td><input disabled="true" id="exam" type="date"  th:field="*{examDate}" onchange="TDate()" required/></td>
+        </tr>
+        </div>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
