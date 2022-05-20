@@ -13,6 +13,7 @@
         <th>Description</th>
         <th>Deadline</th>
         <th>ExamDate</th>
+        <th>Type</th>
         <th>leader</th>
     </tr>
     </thead>
@@ -22,13 +23,22 @@
         <td th:text="${project.getDescription()}"></td>
         <td th:text="${project.getDeadline()}"></td>
         <td th:text="${project.getExamDate()}"></td>
-        <td th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
-        <td><form action="#" th:action="@{/signProject/{id}(id=${project.id})}" th:object="${project}" method="post" >
-             <p> <input  type="submit"   value="get project"></p>
-            </form>
+        <div th:switch="${project.getType()}">
+            <td th:case="1">Project</td>
+            <td th:case="2">Bachelor thesis</td>
+            <td th:case="3">Master thesis</td>
+        </div>
+        <div th:switch="${addNew}">
+            <td th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
+            <td><form action="#" th:case="true" th:action="@{/signProject/{id}(id=${project.id})}" th:object="${project}" method="post" >
+            <p> <input  type="submit"   value="get project"></p>
+        </form>
+            <p th:case="false">You are already signed in for a project!</p>
+        </div>
         </td>
     </tr>
     </tbody>
 </table>
+<input action="action" type="button" onclick="history.go(-1);" value="back"/>
 </body>
 </html>

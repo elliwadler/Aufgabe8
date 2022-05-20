@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Add new Student</h2>
+
+<form action="#" th:action="@{/saveStudent}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td><label th:text="username" /></td>
+            <td><input type="text" th:field="*{username}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="Last Name" /></td>
+            <td><input type="text" th:field="*{lastName}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="First Name" /></td>
+            <td><input type="text" th:field="*{firstName}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="Password" /></td>
+            <td><input type="text" th:field="*{password}" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

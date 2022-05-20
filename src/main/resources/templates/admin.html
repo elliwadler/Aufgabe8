@@ -5,8 +5,38 @@
     <title>Title</title>
 </head>
 <body>
-<h2>Welcome admin</h2>
-<p th:text="${user.toString()}"></p>
+<h2 th:text="'Welcome ' + ${user.getFirstName()}"></h2></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ProjectName</th>
+        <th>Description</th>
+        <th>Deadline</th>
+        <th>ExamDate</th>
+        <th>Type</th>
+        <th>student</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project : ${projects}">
+        <td th:text="${project.getName()}"></td>
+        <td th:text="${project.getDescription()}"></td>
+        <td th:text="${project.getDeadline()}"></td>
+        <td th:text="${project.getExamDate()}"></td>
+        <div th:switch="${project.getType()}">
+            <td th:case="1">Project</td>
+            <td th:case="2">Bachelor thesis</td>
+            <td th:case="3">Master thesis</td>
+        </div>
+        <td th:if="${project.getStudent !=  null}" th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<form action="/newStudent" method="get">
+    <input id="submit" type="submit" value="Add new Student" />
+</form>
 
 </body>
 </html>

@@ -23,7 +23,7 @@ public class Project {
     private LocalDate deadline;
     private LocalDate examDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id", nullable = true)
     private User student;
 
@@ -111,4 +111,8 @@ public class Project {
     public void setLeader(User leader) {
         this.leader = leader;
     }
+
+    public int getType(){return type;}
+
+    public void setType(int type){this.type = type;}
 }

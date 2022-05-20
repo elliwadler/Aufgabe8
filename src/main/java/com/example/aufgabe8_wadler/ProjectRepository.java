@@ -16,4 +16,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("select p FROM Project p where p.student.id = null ")
     ArrayList<Project> findOpenProjects();
+
+    @Query("select p FROM Project p where p.student.id = null and  p.type=?1")
+    ArrayList<Project> findOpenProjectsByType(int level);
 }

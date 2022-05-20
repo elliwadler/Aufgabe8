@@ -30,9 +30,9 @@ public class User {
     private int maxB;
     private int maxM;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY,
+    @OneToOne(mappedBy = "student", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Set<Project> projects;
+    private Project project;
 
     @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
@@ -70,6 +70,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", level=" + level +
                 '}';
     }
 

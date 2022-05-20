@@ -19,6 +19,8 @@ public class UserService {
     public List<User> hello(){
         return userRepository.findAll();
     }
+
+
     public void addNewUser(User user){
         Optional<User> usernameOptional = userRepository.findUserByUsername(user.getUsername());
         if(usernameOptional.isPresent()){
@@ -35,6 +37,12 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void updateUser(Long userID, String username) {
-    }
+    public void updateStudentLevel(Long userID) {
+
+            User user = userRepository.findUserByID(userID);
+            if(user.getLevel() < 3) {
+                user.setLevel(user.getLevel() + 1);
+                userRepository.save(user);
+            }
+        }
 }

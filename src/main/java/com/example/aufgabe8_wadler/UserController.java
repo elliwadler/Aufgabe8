@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class UserController {
     }
     @GetMapping("/logout")
     public String logout() {
+        user = null;
         return "hello";
     }
 
@@ -58,7 +60,7 @@ public class UserController {
 
         }
         else{
-             return "loginError";
+            return "loginError";
         }
     }
 
@@ -78,8 +80,24 @@ public class UserController {
     @GetMapping("/findOpenProject")
     public String findOpenProject(Model model) {
         ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
-        projects = projectRepository.findOpenProjects();
+        ArrayList<Project> help = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
+        for(int i = 1; i<=user.getLevel(); i++){
+            help = projectRepository.findOpenProjectsByType(i);
+            for (Project p:help){
+                projects.add(p);
+            }
+        }
         model.addAttribute("projects", projects);
+
+        ArrayList<Project> projectsStudent = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
+        projectsStudent = projectRepository.findProjectByStudentID(user.getId());
+        boolean addNew = false;
+        if(projectsStudent.size() < 1){
+            addNew = true;
+        }
+        model.addAttribute("addNew", addNew);
+
+        model.addAttribute("level", user.getLevel());
 
         return "OpenProjects";
     }
@@ -104,20 +122,41 @@ public class UserController {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
 
-        System.out.println(project.getName());
+
+        if(user.getLevel() == 1 && project.getType() == 1) {
+            userRepository.updateLevel(2, user.getId());
+        }
+        else if(user.getLevel() == 2 && project.getType() == 2) {
+            userRepository.updateLevel(3, user.getId());
+        }
+
         /**
-         @TODO fix to update
+         @TODO move Project not delete
          **/
-        projectRepository.delete(projectRepository.getById(id));
+        projectRepository.deleteById(id);
+        //reload user
+        user= userRepository.findUserByID(user.getId());
 
         return "redirect:/WelcomeStudent";
     }
+
+
 
     //ADMIN WELCOMEPAGE
     @GetMapping("/WelcomeAdmin")
     public String welcomeAdmin(Model model){
         model.addAttribute("user", user);
+
+        ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
+        projects = projectRepository.findProjectByLeaderID(user.getId());
+        model.addAttribute("projects", projects);
+
         return "admin";
+    }
+
+    @GetMapping("/newStudent")
+    public String NewStudent() {
+        return "NewStudent";
     }
 
     //ASSISTENT WELCOMEPAGE
@@ -144,7 +183,7 @@ public class UserController {
     public void updateUser(
             @PathVariable("userID") Long userID,
             @RequestParam(required = false) String username){
-        userService.updateUser(userID, username);
+        //userService.updateUser(userID, username);
     }
 
 }
