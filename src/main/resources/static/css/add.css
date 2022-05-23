@@ -4,7 +4,7 @@
     margin: 0;
     padding:0;
     box-sizing: border-box;
-    font-size: 25px;
+    font-size: 22px;
 }
 body{
     font-family: 'Poppins', sans-serif;
@@ -23,7 +23,15 @@ body{
     min-height: 100vh;
 
 }
-
+#error{
+    font-weight: bold;
+    color:#860000;
+    background-color: #e39999;
+    padding: 1em;
+    border-radius: 20px;
+    margin-top:20px;
+    display: none
+}
 .content{
     display: flex;
     justify-content: flex-start;
@@ -35,6 +43,7 @@ body{
 }
 h2{
     padding-bottom: 2rem;
+    font-size: 27px;
 }
 tr{
     padding-bottom:1rem;

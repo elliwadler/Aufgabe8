@@ -1,5 +1,4 @@
 package com.example.aufgabe8_wadler;
-
 import com.example.aufgabe8_wadler.Tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,13 +35,4 @@ public class UserService {
         }
         userRepository.deleteById(id);
     }
-
-    public void updateStudentLevel(Long userID) {
-
-            User user = userRepository.findUserByID(userID);
-            if(user.getLevel() < 3) {
-                user.setLevel(user.getLevel() + 1);
-                userRepository.save(user);
-            }
-        }
 }

@@ -9,11 +9,11 @@ import java.util.Set;
 
 @Entity
 @Table
-public class User {
+public abstract class User {
 
     @Id
     @SequenceGenerator(
-            name="user_sequence",
+            name = "user_sequence",
             sequenceName = "user_sequence",
             allocationSize = 1
     )
@@ -26,51 +26,22 @@ public class User {
     private String firstName;
 
     @NotNull(message = "username cannot be null!")
-    @Column(unique=true)
+    @Column(unique = true)
     private String username;
 
     private String password;
-    private int role;
-    private int level;
-    private int maxP;
-    private int maxB;
-    private int maxM;
 
-    @OneToOne(mappedBy = "student", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private Project project;
-
-    @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private Set<Project> projects1;
 
     public User() {
     }
 
-    public User(String lastName, String firstName, String username, String password, int level) {
+    public User(String lastName, String firstName, String username, String password) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.username = username;
         this.password = password;
-        this.role = 3;
-        this.level = level;
     }
 
-    public User(String lastName, String firstName, String username, String password, int role, int maxP, int maxB, int maxM) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.username = username;
-        this.password = password;
-        if(role==1||role==2) {
-            this.role = role;
-        }
-        else{
-            this.role=2;
-        }
-        this.maxP=maxP;
-        this.maxB=maxB;
-        this.maxM =maxM;
-    }
 
     @Override
     public String toString() {
@@ -80,17 +51,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
-                ", level=" + level +
                 '}';
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
     }
 
     public Long getId() {
@@ -131,45 +92,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        if(this.role == 3) {
-            this.level = level;
-        }
-    }
-
-    public int getMaxP() {
-        return maxP;
-    }
-
-    public void setMaxP(int maxP) {
-        if(this.role != 1) {
-            this.maxP = maxP;
-        }
-    }
-
-    public int getMaxB() {
-        return maxB;
-    }
-
-    public void setMaxB(int maxB) {
-        if(this.role != 3) {
-            this.maxB = maxB;
-        }
-    }
-
-    public int getMaxM() {
-        return maxM;
-    }
-
-    public void setMaxM(int maxM) {
-        if(this.role != 3) {
-            this.maxM = maxM;
-        }
     }
 }

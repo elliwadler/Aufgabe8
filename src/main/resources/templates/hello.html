@@ -29,6 +29,11 @@
                     <input required="required" type="password" class="input" id="password" name="password"/>
                 </div>
             </div>
+            <div>
+                 <div th:switch="${check}">
+                    <p th:case="false" style="font-weight: bold; color:#860000;background-color: #e39999; padding: 1em; border-radius: 20px; margin-top:20px">Incorrect username or password!</p>
+                 </div>
+            </div>
             <input id="submit"  class="btn" type="submit" value="Login" />
             <a href="#">Forgot Password?</a>
         </form>

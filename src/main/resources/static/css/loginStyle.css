@@ -21,9 +21,15 @@ body{
     align-items: center;
     text-align: center;
     min-height: 100vh;
-    background-image: url("/css/images/loginBackground.jpg");
+    /*background-image: url("/css/images/loginBackground.jpg");*/
     background-size: cover;
     background-position: center;
+}
+.error{
+    background-color: #e39999;
+    border-radius: 2em;
+    padding: 3em;
+    color: red;
 }
 .img{    display: flex;
     justify-content: flex-end;
@@ -135,9 +141,12 @@ a{
     font-size: 0.9rem;
     transition: .3s;
 }
-a:hover{
+a:hover {
     color: #00a898;
 }
+
+
+
 .btn{
     display: block;
     width: 100%;

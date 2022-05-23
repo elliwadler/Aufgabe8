@@ -29,11 +29,11 @@ public class Project {
 
     @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id", nullable = true)
-    private User student;
+    private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id1", nullable = false)
-    private User leader;
+    private Leader leader;
 
     private int type;
 
@@ -41,7 +41,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, String description, LocalDate deadline, LocalDate examDate, User leader){
+    public Project(String name, String description, LocalDate deadline, LocalDate examDate, Leader leader){
         this.name = name;
         this.description = description;
         this.deadline = deadline;
@@ -50,7 +50,7 @@ public class Project {
         this.type = 3;
     }
 
-    public Project(String name, String description, LocalDate deadline, User leader){
+    public Project(String name, String description, LocalDate deadline, Leader leader){
         this.name = name;
         this.description = description;
         this.deadline = deadline;
@@ -58,11 +58,25 @@ public class Project {
         this.leader = leader;
         this.type = 2;
     }
-    public Project(String name,  LocalDate deadline,  User leader){
+    public Project(String name,  LocalDate deadline,  Leader leader){
         this.name = name;
         this.deadline = deadline;
         this.leader = leader;
         this.type = 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deadline=" + deadline +
+                ", examDate=" + examDate +
+                ", student=" + student +
+                ", leader=" + leader +
+                ", type=" + type +
+                '}';
     }
 
     public Long getId() {
@@ -109,7 +123,7 @@ public class Project {
         return student;
     }
 
-    public void setStudent(User student) {
+    public void setStudent(Student student) {
         this.student = student;
     }
 
@@ -117,7 +131,7 @@ public class Project {
         return leader;
     }
 
-    public void setLeader(User leader) {
+    public void setLeader(Leader leader) {
         this.leader = leader;
     }
 
