@@ -3,6 +3,8 @@ package com.example.aufgabe8_wadler.Controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
@@ -17,7 +19,8 @@ public class LoginController {
 
         return authentication.getName();
     }
-    @GetMapping("/student")
+
+    @GetMapping("/user")
     public String student(){
         return ("<h1>Welcome User</h1>");
     }
