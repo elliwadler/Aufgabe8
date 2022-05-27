@@ -7,6 +7,7 @@ import com.example.aufgabe8_wadler.Tables.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -15,7 +16,7 @@ import java.util.List;
 @Configuration
 public class UserConfig {
 
-   /* @Bean
+    @Bean
     CommandLineRunner commandLineRunner(UserRepository userRepository, ProjectRepository projectRepository){
         return args -> {
 
@@ -41,6 +42,16 @@ public class UserConfig {
             projectRepository.saveAll(List.of(P1,P2,P3, P4, P5, P6, P7, P8));
 
 
-        };*/
-    //}
+        };
+    }
+    @Bean(name = "dataSource")
+    public DriverManagerDataSource dataSource() {
+        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/test4");
+        driverManagerDataSource.setUsername("admin");
+        driverManagerDataSource.setPassword("test");
+        return driverManagerDataSource;
+    }
+
 }

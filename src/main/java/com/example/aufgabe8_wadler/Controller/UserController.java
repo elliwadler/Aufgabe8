@@ -38,11 +38,11 @@ public class UserController {
     }
 
     //LANDINGPAGE
-    @GetMapping("/")
+/*    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("check", check);
         return "hello";
-    }
+    }*/
 
     @GetMapping("/logout")
     public String logout() {
