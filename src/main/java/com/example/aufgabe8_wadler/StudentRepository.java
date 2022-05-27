@@ -15,8 +15,13 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("select u FROM Student u where u.username = ?1")
     Optional<Student> findUserByUsername(String username);
 
-    @Query("select u FROM Student u where u.id = ?1")
-    Student findUserByID(long ID);
+    Student findUserById(long ID);
+
+    @Query("select u.level FROM Student u where u.username = ?1")
+    int findLevelByUsername(String username);
+
+    @Query("select u.id FROM Student u where u.username = ?1")
+    long findIdByUsername(String username);
 
     @Query("select u.id FROM Student u where u.username = ?1 and u.password=?2 ")
     Long authenticate(String username, String password);

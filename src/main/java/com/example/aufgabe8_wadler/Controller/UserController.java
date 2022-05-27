@@ -58,7 +58,7 @@ public class UserController {
         Long id = studentRepository.authenticate(username, password);
 
         if (studentRepository.exists(id)) {
-            student = studentRepository.findUserByID(id);
+            student = studentRepository.findUserById(id);
             return "redirect:/WelcomeStudent";
         } else {
             id = leaderRepository.authenticate(username, password);
@@ -73,79 +73,10 @@ public class UserController {
     }
 
     //STUDENT WELCOMEPAGE
-    @GetMapping("/WelcomeStudent")
-    public String welcomeStudent(Model model) {
-        model.addAttribute("user", student);
 
-        ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
-        projects = projectRepository.findProjectByStudentID(student.getId());
-        model.addAttribute("projects", projects);
 
-        return "student";
-    }
 
-    @GetMapping("/findOpenProject")
-    public String findOpenProject(Model model) {
-        ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
-        ArrayList<Project> help = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
 
-        for (int i = 1; i <= student.getLevel(); i++) {
-            help = projectRepository.findOpenProjectsByType(i);
-            for (Project p : help) {
-                projects.add(p);
-            }
-        }
-        model.addAttribute("projects", projects);
-
-        ArrayList<Project> projectsStudent = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
-        projectsStudent = projectRepository.findProjectByStudentID(student.getId());
-        boolean addNew = false;
-        if (projectsStudent.size() < 1) {
-            addNew = true;
-        }
-        model.addAttribute("addNew", addNew);
-
-        model.addAttribute("level", student.getLevel());
-
-        return "OpenProjects";
-    }
-
-    @PostMapping("/signProject/{id}")
-    public String signProject(@PathVariable("id") long id, Model model) {
-        Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
-
-/**
- @TODO fix to update
- **/
-
-        projectRepository.delete(projectRepository.getById(id));
-        project.setStudent(student);
-        projectRepository.save(project);
-
-        return "redirect:/WelcomeStudent";
-    }
-    @PostMapping("/deleteProject/{id}")
-    public String doneProject(@PathVariable("id") long id, Model model) {
-        Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
-
-        if (student.getLevel() == 1 && project.getType() == 1) {
-            studentRepository.updateLevel(2, student.getId());
-        } else if (student.getLevel() == 2 && project.getType() == 2) {
-            studentRepository.updateLevel(3, student.getId());
-        }
-
-        /**
-         @TODO move Project not delete
-         **/
-
-        projectRepository.deleteById(id);
-        //reload user
-        student = studentRepository.findUserByID(student.getId());
-
-        return "redirect:/WelcomeStudent";
-    }
 
     @PostMapping("/deleteProject1/{id}")
     public String deleteProject(@PathVariable("id") long id, Model model) {
@@ -186,16 +117,7 @@ public class UserController {
     }
 
     //Leader WELCOMEPAGE
-    @GetMapping("/WelcomeLeader")
-    public String welcomeLeader(Model model) {
-        model.addAttribute("user", leader);
 
-        ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
-        projects = projectRepository.findProjectByLeaderID(leader.getId());
-        model.addAttribute("projects", projects);
-
-        return "leader";
-    }
 
     @GetMapping("/newStudent")
     public String newStudent(Model model) {

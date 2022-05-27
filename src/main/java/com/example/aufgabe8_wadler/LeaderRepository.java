@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface LeaderRepository extends JpaRepository<Leader, Long> {
-    @Query("select u FROM Leader u where u.username = ?1")
+
     Optional<Leader> findUserByUsername(String username);
 
     @Query("select u FROM Leader u where u.id = ?1")
@@ -20,5 +20,8 @@ public interface LeaderRepository extends JpaRepository<Leader, Long> {
 
     @Query("SELECT CASE WHEN COUNT(u)> 0 THEN true ELSE false END FROM Leader u WHERE u.id = ?1")
     boolean exists(Long id);
+
+    @Query("select u.id FROM Leader u where u.username = ?1")
+    long findIdByUsername(String username);
 
 }

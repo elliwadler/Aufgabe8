@@ -21,7 +21,7 @@ public class UserService {
 
 
     public void addNewUser(User user){
-        Optional<User> usernameOptional = userRepository.findUserByUsername(user.getUsername());
+        Optional<User> usernameOptional = userRepository.findByUsername(user.getUsername());
         if(usernameOptional.isPresent()){
             throw new IllegalStateException("username taken");
         }
