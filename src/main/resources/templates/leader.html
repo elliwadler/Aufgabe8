@@ -6,17 +6,20 @@
     <link rel="stylesheet" href="/css/welcome.css"/>
 </head>
 <body>
-<h2 th:text="'Welcome ' "></h2></h2>
+<h2 th:text="'Welcome ' + ${username}"></h2></h2>
 
-<form action="/saveSettings" method="post">
+<div class="error">
+    <p th:if="${error}">Can't change Settings, because you already have too many active Projects!</p>
+</div>
+<form th:action="@{/saveSettings}" method="post">
     <label for="maxP">Max Projects:</label>
-    <input type="number" id="maxP" name="maxP" min="0" max="10" th:value="${user.getMaxP()}">
+    <input type="number" id="maxP" name="maxP" min="0" max="10" th:value="${maxP}">
 
     <label for="maxB">Max Bachelor thesis:</label>
-    <input type="number" id="maxB" name="maxB" min="0" max="10" th:value="${user.getMaxB()}">
+    <input type="number" id="maxB" name="maxB" min="0" max="10" th:value="${maxB}">
 
     <label for="maxM">Max Master thesis:</label>
-    <input type="number" id="maxM" name="maxM" min="0" max="10" th:value="${user.getMaxM()}">
+    <input type="number" id="maxM" name="maxM" min="0" max="10" th:value="${maxM}">
 
     <input id="submit1" type="submit" value="Save Settings" />
 </form>
@@ -56,9 +59,9 @@
     </tbody>
 </table>
 
-<div th:if="${user.getRole() == 1}">
-<form action="/newStudent" method="get">
-    <input id="submit" type="submit" value="Add new Student" />
+<div th:if="${role == 1}">
+<form action="/newUser" method="get">
+    <input id="submit" type="submit" value="Add new User" />
 </form>
 <form action="/findProjects" method="get">
     <input id="submit" type="submit" value="Find all Projects" />

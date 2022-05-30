@@ -1,4 +1,4 @@
-package com.example.aufgabe8_wadler;
+package com.example.aufgabe8_wadler.Config;
 
 import com.example.aufgabe8_wadler.Tables.User;
 import org.springframework.security.core.GrantedAuthority;

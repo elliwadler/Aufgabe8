@@ -1,7 +1,7 @@
 package com.example.aufgabe8_wadler.Controller;
 
-import com.example.aufgabe8_wadler.ProjectRepository;
-import com.example.aufgabe8_wadler.StudentRepository;
+import com.example.aufgabe8_wadler.repository.ProjectRepository;
+import com.example.aufgabe8_wadler.repository.StudentRepository;
 import com.example.aufgabe8_wadler.Tables.Project;
 import com.example.aufgabe8_wadler.Tables.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +28,11 @@ public class StudentController {
 
     @GetMapping("/WelcomeStudent")
     public String welcomeStudent(Model model, Principal p) {
-        model.addAttribute("username", p.getName());
+        Student student = studentRepository.findStudentByUsername(p.getName()).get();
+        model.addAttribute("username",  student.getFirstName());
 
         ArrayList<Project> projects;
-        projects = projectRepository.findProjectByStudentID(studentRepository.findUserByUsername(p.getName()).get().getId());
+        projects = projectRepository.findProjectByStudentID(studentRepository.findStudentByUsername(p.getName()).get().getId());
         model.addAttribute("projects", projects);
 
         return "student";
@@ -75,7 +76,7 @@ public class StudentController {
  **/
 
         projectRepository.delete(projectRepository.getById(id));
-        project.setStudent(studentRepository.findUserByUsername(p.getName()).get());
+        project.setStudent(studentRepository.findStudentByUsername(p.getName()).get());
         projectRepository.save(project);
 
         return "redirect:/WelcomeStudent";

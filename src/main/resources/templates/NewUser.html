@@ -9,6 +9,7 @@
              const pass1 = document.getElementById("pass1").value;
              const pass2 = document.getElementById("pass2").value;
              if(pass1 !=  pass2) {
+                alert('Error, cant do that');
                  document.getElementById("save").disabled = true;
                  document.getElementById("error").style.display = "block";
             }
@@ -24,10 +25,18 @@
 
     <div class="content">
 
-        <form action="#" th:action="@{/saveAsi}" th:object="${user}" method="post" name="test">
+        <form action="#" th:action="@{/saveUser}" th:object="${user}" method="post" name="test">
             <table>
                 <tr>
-                    <td colspan="2"> <h2>Create a new Assistent</h2></td>
+                    <td colspan="2"> <h2>Create a new User</h2></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <select id="type" name="type">
+                            <option value="1" >Student</option>
+                            <option value="2">Assistent</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Username:</td>
@@ -51,8 +60,11 @@
                     <td><input type="text"  onblur="check()" id="pass2" required="required"/></td>
                 </tr>
                 <tr id="error" style="display: none; font-weight: bold; color:#860000">
-                    <td colspan="2">
-                        <p style= "text-align: right">Passwords are not equal!</p>
+                    <td>
+                        <p></p>
+                    </td>
+                    <td>
+                        <p style=" font-size: 20px">Passwords are not equal!</p>
                     </td>
                 </tr>
                 <tr>

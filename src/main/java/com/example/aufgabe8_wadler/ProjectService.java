@@ -1,7 +1,7 @@
 package com.example.aufgabe8_wadler;
 
 import com.example.aufgabe8_wadler.Tables.Project;
-import com.example.aufgabe8_wadler.Tables.User;
+import com.example.aufgabe8_wadler.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

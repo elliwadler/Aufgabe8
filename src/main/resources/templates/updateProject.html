@@ -73,6 +73,17 @@
             </tr>
         </div>
         <tr>
+            <td>Student:</td>
+            <td>
+                <div>
+                    <select id="student" name="student">
+                        <option th:each="s : ${students}" th:value="${s.getId()}" th:text="${s.getFirstName()}+${s.getLastName()}"></option>
+                        <option value="-1">nobody</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr>
             <td><input type="submit" value="Submit"/></td>
         </tr>
     </table>

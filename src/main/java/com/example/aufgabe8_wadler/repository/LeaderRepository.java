@@ -1,6 +1,7 @@
 package com.example.aufgabe8_wadler;
 
 import com.example.aufgabe8_wadler.Tables.Leader;
+import com.example.aufgabe8_wadler.Tables.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface LeaderRepository extends JpaRepository<Leader, Long> {
 
-    Optional<Leader> findUserByUsername(String username);
+    Optional<Leader> findLeaderByUsername(String username);
 
     @Query("select u FROM Leader u where u.id = ?1")
     Leader findUserByID(long ID);

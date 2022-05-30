@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table
-public abstract class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

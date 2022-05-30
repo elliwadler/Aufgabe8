@@ -1,82 +1,68 @@
 package com.example.aufgabe8_wadler.Controller;
 
 import com.example.aufgabe8_wadler.LeaderRepository;
-import com.example.aufgabe8_wadler.ProjectRepository;
-import com.example.aufgabe8_wadler.StudentRepository;
+import com.example.aufgabe8_wadler.Tables.User;
+import com.example.aufgabe8_wadler.repository.ProjectRepository;
 import com.example.aufgabe8_wadler.Tables.Leader;
 import com.example.aufgabe8_wadler.Tables.Project;
 import com.example.aufgabe8_wadler.Tables.Student;
-import com.example.aufgabe8_wadler.Tables.User;
 import com.example.aufgabe8_wadler.UserService;
+import com.example.aufgabe8_wadler.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 @Controller
-public class UserController {
-
-    private final UserService userService;
-    private final StudentRepository studentRepository;
-    private final LeaderRepository leaderRepository;
-    private final ProjectRepository projectRepository;
-    private Student student;
-    private Leader leader;
-    private boolean check = true;
+public class LeaderController {
+    ProjectRepository projectRepository;
+    LeaderRepository leaderRepository;
+    StudentRepository studentRepository;
+    UserService userService;
+    boolean error;
+    boolean errornew;
 
     @Autowired
-    public UserController(UserService userService, LeaderRepository leaderRepository, StudentRepository studentRepository, ProjectRepository projectRepository) {
+    LeaderController(ProjectRepository projectRepository, LeaderRepository leaderRepository, UserService userService, StudentRepository studentRepository){
+        this.projectRepository = projectRepository;
+        this.leaderRepository = leaderRepository;
         this.userService = userService;
         this.studentRepository = studentRepository;
-        this.leaderRepository = leaderRepository;
-        this.projectRepository = projectRepository;
+        error =false;
+        errornew=false;
     }
 
-    //LANDINGPAGE
-/*    @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("check", check);
-        return "hello";
-    }*/
+    //Leader WELCOMEPAGE
+    @GetMapping("/WelcomeLeader")
+    public String welcomeLeader(Model model, Principal p) {
+        Optional<Leader> leader = leaderRepository.findLeaderByUsername(p.getName());
+        int maxP =  leader.get().getMaxP();
+        int maxB =  leader.get().getMaxB();
+        int maxM =  leader.get().getMaxM();
 
-    @GetMapping("/logout")
-    public String logout() {
-        student = null;
-        leader = null;
-        return "hello";
+        int role = leader.get().getRole();
+
+        model.addAttribute("username", leader.get().getFirstName());
+        model.addAttribute("maxP", maxP);
+        model.addAttribute("maxB", maxB);
+        model.addAttribute("maxM", maxM);
+        model.addAttribute("role", role);
+        model.addAttribute("error", error);
+
+        ArrayList<Project> projects;
+
+        projects = projectRepository.findProjectByLeaderID(leaderRepository.findIdByUsername(p.getName()));
+        model.addAttribute("projects", projects);
+
+        return "leader";
     }
-
-    //LOGIN INFORMATION
-    @PostMapping("/test")
-    public String loginUser(@RequestParam String username, @RequestParam String password, Model model) {
-
-        Long id = studentRepository.authenticate(username, password);
-
-        if (studentRepository.exists(id)) {
-            student = studentRepository.findUserById(id);
-            return "redirect:/WelcomeStudent";
-        } else {
-            id = leaderRepository.authenticate(username, password);
-        }
-        if (leaderRepository.exists(id)) {
-            leader = leaderRepository.findUserByID(id);
-            return "redirect:/WelcomeLeader";
-        } else {
-            check = false;
-            return "redirect:/";
-        }
-    }
-
-    //STUDENT WELCOMEPAGE
-
-
-
-
 
     @PostMapping("/deleteProject1/{id}")
     public String deleteProject(@PathVariable("id") long id, Model model) {
@@ -92,46 +78,67 @@ public class UserController {
     @GetMapping("/updateProject/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
         model.addAttribute("project", project);
+        ArrayList<Student> s =studentRepository.findStudentWithoutProject(project.getType());
+
+        if(project.getStudent() != null) {
+            s.add((Student) project.getStudent());
+        }
+        model.addAttribute("students", s);
         return "updateProject";
     }
 
     @PostMapping("/updateProject1/{id}")
-    public String updateProject(@PathVariable("id") long id, @RequestParam String name, @RequestParam(required = false, name = "des") String des, @RequestParam String deadline, @RequestParam(required = false, name = "exam") String exam) {
+    public String updateProject(@PathVariable("id") long id,@RequestParam long student, @RequestParam String name, @RequestParam(required = false, name = "des") String des, @RequestParam String deadline, @RequestParam(required = false, name = "exam") String exam) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
 
         project.setName(name);
         project.setDescription(des);
 
+        System.out.println(student);
 
-        project.setDeadline(LocalDate.parse(deadline));
-        project.setExamDate(LocalDate.parse(exam));
+        Optional.ofNullable(LocalDate.parse(deadline))
+                .map(Date::valueOf)
+                .orElse(null);
 
-        System.out.println(deadline);
+        if(exam != null)
+        Optional.ofNullable(LocalDate.parse(exam))
+                .map(Date::valueOf)
+                .orElse(null);
+
+        if(student != -1){
+            project.setStudent(studentRepository.findUserById(student));
+        }
+        else
+            project.setStudent(null);
 
         projectRepository.save(project);
 
         return "redirect:/WelcomeLeader";
     }
 
-    //Leader WELCOMEPAGE
 
-
-    @GetMapping("/newStudent")
+    @GetMapping("/newUser")
     public String newStudent(Model model) {
-        Student newStudent = new Student();
-        model.addAttribute("user", newStudent);
-        return "NewStudent";
+        User newUser = new User();
+        model.addAttribute("user", newUser);
+        return "NewUser";
     }
 
 
-    @PostMapping("/saveStudent")
-    public String saveStudent(@RequestParam String username, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String password) {
+    @PostMapping("/saveUser")
+    public String saveStudent(@RequestParam int type, @RequestParam String username, @RequestParam String lastName, @RequestParam String firstName, @RequestParam String password) {
         try {
-            Student student = new Student(lastName, firstName, username, password, 1);
-            userService.addNewUser(student);
+            User user = new User();
+            if(type == 1) {
+                user = new Student(lastName, firstName, username, password, 1);
+            }
+            else{
+                user = new Leader(lastName, firstName, username, password, 10,10,10,2);
+            }
+                userService.addNewUser(user);
         }
         catch (IllegalStateException e){
             return "errors/saveStudent";
@@ -140,17 +147,21 @@ public class UserController {
     }
 
     @PostMapping("/saveSettings")
-    public String saveSettings(@RequestParam(required = false, name = "maxP") String maxP, @RequestParam(required = false, name = "maxB") String maxB, @RequestParam(required = false, name = "maxM") String maxM) {
+    public String saveSettings(Principal p, @RequestParam(required = false, name = "maxP") String maxP, @RequestParam(required = false, name = "maxB") String maxB, @RequestParam(required = false, name = "maxM") String maxM) {
+        error = false;
+
         List<Project> projects = new ArrayList<>();
 
         System.out.println(maxB);
+
+        Leader leader = leaderRepository.findLeaderByUsername(p.getName()).get();
 
         if (maxP != null) {
             projects = projectRepository.findOpenProjectsByLeaderAndType(leader.getId(), 1);
             if (projects.size() <= Integer.parseInt(maxP))
                 leader.setMaxP(Integer.parseInt(maxP));
             else {
-                throw new IllegalStateException("You cant change your maximal amount because you already have to much!");
+                error = true;
             }
         }
 
@@ -159,7 +170,7 @@ public class UserController {
             if (projects.size() <= Integer.parseInt(maxB))
                 leader.setMaxB(Integer.parseInt(maxB));
             else {
-                throw new IllegalStateException("You cant change your maximal amount because you already have to much!");
+                error = true;
             }
         }
 
@@ -168,7 +179,7 @@ public class UserController {
             if (projects.size() <= Integer.parseInt(maxM))
                 leader.setMaxM(Integer.parseInt(maxM));
             else {
-                throw new IllegalStateException("You cant change your maximal amount because you already have to much!");
+                error = true;
             }
         }
 
@@ -195,8 +206,10 @@ public class UserController {
     }
 
     @PostMapping("/saveProject")
-    public String saveProject(@ModelAttribute("project") Project newProject) {
+    public String saveProject(@ModelAttribute("project") Project newProject, Principal p) {
+        Leader leader = leaderRepository.findLeaderByUsername(p.getName()).get();
 
+        errornew =false;
         int size = projectRepository.findOpenProjectsByLeaderAndType(leader.getId(), newProject.getType()).size();
         switch (newProject.getType()) {
             case 1:
@@ -204,7 +217,7 @@ public class UserController {
                     newProject.setLeader(leader);
                     projectRepository.save(newProject);
                 } else {
-                    throw new IllegalStateException("To much projects. Increase max value!");
+                    errornew =true;
                 }
                 break;
             case 2:
@@ -212,7 +225,7 @@ public class UserController {
                     newProject.setLeader(leader);
                     projectRepository.save(newProject);
                 } else {
-                    throw new IllegalStateException("To much projects. Increase max value!");
+                    errornew =true;
                 }
                 break;
             case 3:
@@ -220,12 +233,11 @@ public class UserController {
                     newProject.setLeader(leader);
                     projectRepository.save(newProject);
                 } else {
-                    throw new IllegalStateException("To much projects. Increase max value!");
+                    errornew =true;
                 }
                 break;
         }
 
         return "redirect:/WelcomeLeader";
     }
-
 }

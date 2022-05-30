@@ -38,7 +38,9 @@
 </script>
 <body>
 <h2>Add new Project</h2>
-
+<div class="error">
+    <p th:if="${error}">Can't save Project, because you reached your maximal amount of Projects</p>
+</div>
 <form action="#" th:action="@{/saveProject}" th:object="${project}" method="post">
     <table>
         <tr>

@@ -1,6 +1,8 @@
-package com.example.aufgabe8_wadler;
+package com.example.aufgabe8_wadler.Config;
 
+import com.example.aufgabe8_wadler.Config.MyUserDetails;
 import com.example.aufgabe8_wadler.Tables.User;
+import com.example.aufgabe8_wadler.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.example.aufgabe8_wadler;
+package com.example.aufgabe8_wadler.repository;
 
 import com.example.aufgabe8_wadler.Tables.Project;
 import org.springframework.data.jpa.repository.JpaRepository;

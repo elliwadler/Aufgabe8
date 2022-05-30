@@ -1,16 +1,17 @@
-package com.example.aufgabe8_wadler;
+package com.example.aufgabe8_wadler.Config;
 
+import com.example.aufgabe8_wadler.repository.ProjectRepository;
 import com.example.aufgabe8_wadler.Tables.Leader;
 import com.example.aufgabe8_wadler.Tables.Project;
 import com.example.aufgabe8_wadler.Tables.Student;
 import com.example.aufgabe8_wadler.Tables.User;
+import com.example.aufgabe8_wadler.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Configuration

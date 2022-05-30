@@ -9,10 +9,10 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final com.example.aufgabe8_wadler.UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(com.example.aufgabe8_wadler.UserRepository userRepository){
         this.userRepository = userRepository;
     }
     public List<User> hello(){
