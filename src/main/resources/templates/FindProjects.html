@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+    <link rel="stylesheet" href="/css/welcome.css"/>
 </head>
 <body>
+<h1>All Projects</h1>
 <table id="projects">
     <thead>
     <tr>
@@ -30,18 +31,19 @@
             <p th:case="3">Master thesis</p>
         </div></td>
         <td th:if="${project.getStudent !=  null}" th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>
+        <td th:unless="${project.getStudent !=  null}">-</td>
         <td  th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
         <td><form action="#" th:action="@{/updateProject/{id}(id=${project.id})}" th:object="${project}" method="get" >
-            <p> <input  type="submit"   value="update"></p>
+            <p> <input  class="action" type="submit"   value="update"></p>
         </form>
         </td>
         <td><form action="#" th:action="@{/deleteProject1/{id}(id=${project.id})}" th:object="${project}" method="post" >
-            <p> <input  type="submit"   value="delete"></p>
+            <p> <input  class="action" type="submit"   value="delete"></p>
         </form>
         </td>
     </tr>
     </tbody>
 </table>
-<input action="action" type="button" onclick="history.go(-1);" value="back"/>
+<input action="action" class="logout" type="button" onclick="history.go(-1);" value="back"/>
 </body>
 </html>

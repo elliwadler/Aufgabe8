@@ -2,48 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>LOGIN</title>
-
+    <link rel="stylesheet" href="/css/welcomeS.css"/>
 </head>
 <body>
-<h2 th:text="'Welcome ' + ${username}"></h2></h2>
-<table>
-    <thead>
-    <tr>
-        <th>ProjectName</th>
-        <th>Description</th>
-        <th>Deadline</th>
-        <th>ExamDate</th>
-        <th>Leader</th>
-        <th>Type</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="project : ${projects}">
-        <td th:text="${project.getName()}"></td>
-        <td th:text="${project.getDescription()}"></td>
-        <td th:text="${project.getDeadline()}"></td>
-        <td th:text="${project.getExamDate()}"></td>
-        <td th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
-        <div th:switch="${project.getType()}">
-            <td th:case="1">Project</td>
-            <td th:case="2">Bachelor thesis</td>
-            <td th:case="3">Master thesis</td>
-        </div>
-        <td><form action="#" th:action="@{/deleteProject/{id}(id=${project.id})}" th:object="${project}" method="post" >
-            <p> <input  type="submit"   value="submit"></p>
-        </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<form action="/logout" method="get">
-    <input id="submit" type="submit" value="Logout" />
-</form>
-
-
-<form action="/findOpenProject" method="get">
-    <input id="submit1" type="submit" value="Find new project" />
-</form>
+<div class="main">
+    <div class="head">
+    <h1 th:text="'Welcome ' + ${username}"></h1>
+    <form id="l" action="/logout" method="get">
+        <input class="logout" id="submit" type="submit" value="Logout"/>
+    </form>
+    </div>
+    <h2>Project</h2>
+    <p>Your current active project. You only can work on one project at the same time.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>ProjectName</th>
+            <th>Description</th>
+            <th>Deadline</th>
+            <th>ExamDate</th>
+            <th>Leader</th>
+            <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.getName()}"></td>
+            <td th:text="${project.getDescription()}"></td>
+            <td th:text="${project.getDeadline()}"></td>
+            <td th:text="${project.getExamDate()}"></td>
+            <td th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
+            <div th:switch="${project.getType()}">
+                <td th:case="1">Project</td>
+                <td th:case="2">Bachelor</td>
+                <td th:case="3">Master</td>
+            </div>
+            <td>
+                <form action="#" th:action="@{/deleteProject/{id}(id=${project.id})}" th:object="${project}"
+                      method="post">
+                    <p><input class="action" type="submit" value="submit"></p>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="sidenav">
+    <img src="/css/images/img.png">
+    <p class="username" th:text="${username1}"></p>
+    <form action="/findOpenProject" method="get">
+        <input class="menu" id="submit1" type="submit" value="Find new project"/>
+    </form>
+</div>
 </body>
 </html>

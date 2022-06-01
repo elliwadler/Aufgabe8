@@ -28,10 +28,11 @@
         <form action="#" th:action="@{/saveUser}" th:object="${user}" method="post" name="test">
             <table>
                 <tr>
-                    <td colspan="2"> <h2>Create a new User</h2></td>
+                    <td colspan="2"> <h1>Create a new User</h1></td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td>Role:</td>
+                    <td>
                         <select id="type" name="type">
                             <option value="1" >Student</option>
                             <option value="2">Assistent</option>
@@ -68,12 +69,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input  id="save" class="btn"  type="submit" value="Save"/></td>
+                    <td><input  class ="action" id="save" type="submit" value="Save"/></td>
+                    <td> <input class="logout" action="action"   type="button" onclick="history.go(-1);" value="back"/></td>
+                </tr>
 
-                </tr>
-                <tr>
-                    <td colspan="2"> <input action="action"  class="btn"  type="button" onclick="history.go(-1);" value="back"/></td>
-                </tr>
             </table>
         </form>
 

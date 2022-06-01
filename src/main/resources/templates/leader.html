@@ -15,6 +15,7 @@
 </div>
 <div id="settings">
     <h2>Settings:</h2>
+    <p>Define how many works you want to be in charge of at the same time.</p>
     <div class="error">
         <p th:if="${error}">Can't change Settings, because you already have too many active Projects!</p>
     </div>
@@ -31,7 +32,8 @@
         <input class="action" id="submit1" type="submit" value="Save"/>
     </form>
 </div>
-<h2 id="p">My Projects</h2>
+<h2 id="p">Projects</h2>
+    <p>Your current active works.</p>
 <table>
     <thead>
     <tr>
@@ -51,8 +53,8 @@
         <td th:text="${project.getExamDate()}"></td>
         <div th:switch="${project.getType()}">
             <td th:case="1">Project</td>
-            <td th:case="2">Bachelor thesis</td>
-            <td th:case="3">Master thesis</td>
+            <td th:case="2">Bachelor</td>
+            <td th:case="3">Master</td>
         </div>
         <td th:if="${project.getStudent !=  null}"
             th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>

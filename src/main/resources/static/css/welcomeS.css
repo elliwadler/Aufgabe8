@@ -18,8 +18,8 @@ h2 {
 }
 
 h1{
-    margin-right: 7.5em;
-    width: 13em;
+
+    width: 83%;
 }
 
 
@@ -30,7 +30,7 @@ h1{
     z-index: 1;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to bottom right, rgba(131, 197, 190, 0.89), rgba(0, 109, 119, 0.75));
+    background-image: linear-gradient(to bottom right, #ceabff, #5916b4);
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -49,6 +49,7 @@ h1{
 .head{
     display: inline-flex;
     flex-direction: row;
+    width: 100%;
 }
 .logout{
     color:black;
@@ -96,7 +97,7 @@ h1{
 }
 .action{
     color:black;
-    background-color: #8eced9;
+    background-color:  #ceabff;
     background-repeat:no-repeat;
     border: none;
     border-radius: 15px;
@@ -126,7 +127,7 @@ img{
 }
 .action:hover{
     color: #ffffff;
-    background-color: #006D77;
+    background-color: #5916b4;
     border-radius: 20px;
     transform: scale(1.2);
 }
@@ -140,14 +141,15 @@ img{
     padding: 0px 10px;
 }
 table{
+
     border-collapse:collapse;
-    margin-bottom: 3em;
+    margin-bottom: 1.5em;
 }
 tr{
     width: auto;
 }
 tr:hover{
-    background-color: #EDF6F9;
+    background-color: #f3ecff;
 }
 td{
     text-align: center;

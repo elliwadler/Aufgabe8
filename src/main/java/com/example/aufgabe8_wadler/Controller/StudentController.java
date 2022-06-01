@@ -30,6 +30,7 @@ public class StudentController {
     public String welcomeStudent(Model model, Principal p) {
         Student student = studentRepository.findStudentByUsername(p.getName()).get();
         model.addAttribute("username",  student.getFirstName());
+        model.addAttribute("username1", p.getName());
 
         ArrayList<Project> projects;
         projects = projectRepository.findProjectByStudentID(studentRepository.findStudentByUsername(p.getName()).get().getId());

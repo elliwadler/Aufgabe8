@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/welcomeS.css"/>
 </head>
 <body>
-<h2>Open Projects</h2>
+<h1>Open Projects</h1>
 <table>
     <thead>
     <tr>
-        <th>ProjectName</th>
+        <th>Name</th>
         <th>Description</th>
         <th>Deadline</th>
         <th>ExamDate</th>
@@ -25,13 +26,13 @@
         <td th:text="${project.getExamDate()}"></td>
         <div th:switch="${project.getType()}">
             <td th:case="1">Project</td>
-            <td th:case="2">Bachelor thesis</td>
-            <td th:case="3">Master thesis</td>
+            <td th:case="2">Bachelor</td>
+            <td th:case="3">Master</td>
         </div>
         <div th:switch="${addNew}">
             <td th:text="${project.getLeader().getLastName()+ project.getLeader().getFirstName()}"></td>
             <td><form action="#" th:case="true" th:action="@{/signProject/{id}(id=${project.id})}" th:object="${project}" method="post" >
-            <p> <input  type="submit"   value="get project"></p>
+            <p> <input class="action"  type="submit"   value="get project"></p>
         </form>
             <p th:case="false">You are already signed in for a project!</p>
         </div>
@@ -39,6 +40,6 @@
     </tr>
     </tbody>
 </table>
-<input action="action" type="button" onclick="history.go(-1);" value="back"/>
+<input action="action" class="logout" type="button" onclick="history.go(-1);" value="back"/>
 </body>
 </html>

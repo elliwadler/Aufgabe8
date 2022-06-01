@@ -6,11 +6,11 @@
     box-sizing: border-box;
     font-size: 22px;
 }
-body{
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+body {
+    font-family: 'lato', sans-serif;
+    background-color: #8eced9;
 }
-.container{
+.container {
     width: 100vw;
     height: 100vh;
     grid-template-columns: repeat(2, 1fr);
@@ -23,14 +23,8 @@ body{
     min-height: 100vh;
 
 }
-#error{
-    font-weight: bold;
-    color:#860000;
-    background-color: #e39999;
-    padding: 1em;
-    border-radius: 20px;
-    margin-top:20px;
-    display: none
+select{
+    width: 100%;
 }
 .content{
     display: flex;
@@ -41,8 +35,8 @@ body{
     padding: 3rem 8rem;
     box-shadow: 12px 7px 7px rgba(85, 85, 85, 0.64);
 }
-h2{
-    padding-bottom: 2rem;
+h1{
+    margin-bottom: 2rem;
     font-size: 27px;
 }
 tr{
@@ -50,19 +44,46 @@ tr{
 }
 td{
     padding-right: 2rem;
+    text-align: left;
 }
-.btn{
-    display: block;
-    width: 50%;
-    height: 40px;
-    outline: none;
+.action{
+     color:black;
+     background-color: #8eced9;
+     background-repeat:no-repeat;
+     border: none;
+     border-radius: 15px;
+     cursor:pointer;
+     overflow: hidden;
+     transition-duration: 0.4s;
+     font-weight: bold;
+     font-size: large;
+     padding: 0.3em;
+    width: 40%;
+ }
+.action:hover{
+    color: #ffffff;
+    background-color: #006D77;
+    border-radius: 20px;
+    transform: scale(1.2);
+}
+.logout{
+    color:black;
+    background-color: #fdc4c4;
+    background-repeat:no-repeat;
     border: none;
-    background-image: linear-gradient(to right, #f1cd87, #eab14a, #f1cd87);
-    background-size: 100%;
-    font-size: 0.8rem;
-    color: #000000;
-    text-transform: uppercase;
-    margin-top: 1rem;
-    cursor: pointer;
-    transition: .5s;
+    border-radius: 15px;
+    cursor:pointer;
+    overflow: hidden;
+    transition-duration: 0.4s;
+    font-weight: bold;
+    font-size: large;
+    padding: 0.3em;
+    margin: 0.5em;
+    width: 40%;
+}
+.logout:hover{
+    color: #ffffff;
+    background-color: #fc7f7f;
+    border-radius: 20px;
+    transform: scale(1.2);
 }
