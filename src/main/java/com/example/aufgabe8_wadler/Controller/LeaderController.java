@@ -50,6 +50,7 @@ public class LeaderController {
         int role = leader.get().getRole();
 
         model.addAttribute("username", leader.get().getFirstName());
+        model.addAttribute("username1", p.getName());
         model.addAttribute("maxP", maxP);
         model.addAttribute("maxB", maxB);
         model.addAttribute("maxM", maxM);

@@ -6,37 +6,45 @@
     <link rel="stylesheet" href="/css/welcome.css"/>
 </head>
 <body>
-<h2 th:text="'Welcome ' + ${username}"></h2></h2>
-
-<div class="error">
-    <p th:if="${error}">Can't change Settings, because you already have too many active Projects!</p>
+<div class="main">
+    <div class="head">
+    <h1 th:text="'Welcome ' + ${username}"></h1>
+    <form action="/logout" method="get">
+        <input class="logout" id="submit" type="submit" value="Logout"/>
+    </form>
 </div>
-<form th:action="@{/saveSettings}" method="post">
-    <label for="maxP">Max Projects:</label>
-    <input type="number" id="maxP" name="maxP" min="0" max="10" th:value="${maxP}">
-
-    <label for="maxB">Max Bachelor thesis:</label>
-    <input type="number" id="maxB" name="maxB" min="0" max="10" th:value="${maxB}">
-
-    <label for="maxM">Max Master thesis:</label>
-    <input type="number" id="maxM" name="maxM" min="0" max="10" th:value="${maxM}">
-
-    <input id="submit1" type="submit" value="Save Settings" />
-</form>
-
+<div id="settings">
+    <h2>Settings:</h2>
+    <div class="error">
+        <p th:if="${error}">Can't change Settings, because you already have too many active Projects!</p>
+    </div>
+    <form th:action="@{/saveSettings}" method="post">
+        <label for="maxP">Maximal amount of Projects:</label>
+        <input class="number" type="number" id="maxP" name="maxP" min="0" max="10" th:value="${maxP}">
+        <p></p>
+        <label for="maxB">Maximal amount of Bachelor thesis:</label>
+        <input class="number"  type="number" id="maxB" name="maxB" min="0" max="10" th:value="${maxB}">
+        <p></p>
+        <label for="maxM">Maximal amount of Master thesis:</label>
+        <input class="number"  type="number" id="maxM" name="maxM" min="0" max="10" th:value="${maxM}">
+        <p></p>
+        <input class="action" id="submit1" type="submit" value="Save"/>
+    </form>
+</div>
+<h2 id="p">My Projects</h2>
 <table>
     <thead>
     <tr>
-        <th>ProjectName</th>
+        <th>Name</th>
         <th>Description</th>
         <th>Deadline</th>
         <th>ExamDate</th>
         <th>Type</th>
-        <th>student</th>
+        <th>Student</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="project : ${projects}">
+    <tr  th:each="project : ${projects}">
         <td th:text="${project.getName()}"></td>
         <td th:text="${project.getDescription()}"></td>
         <td th:text="${project.getDeadline()}"></td>
@@ -46,33 +54,38 @@
             <td th:case="2">Bachelor thesis</td>
             <td th:case="3">Master thesis</td>
         </div>
-        <td th:if="${project.getStudent !=  null}" th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>
-        <td><form action="#" th:action="@{/updateProject/{id}(id=${project.id})}" th:object="${project}" method="get" >
-            <p> <input  type="submit"   value="update"></p>
-        </form>
+        <td th:if="${project.getStudent !=  null}"
+            th:text="${project.getStudent().getLastName()+ project.getStudent().getFirstName()}"></td>
+        <td th:unless="${project.getStudent !=  null}">-</td>
+        <td>
+            <form action="#" th:action="@{/updateProject/{id}(id=${project.id})}" th:object="${project}" method="get">
+                <p><input class="action" type="submit" value="update"></p>
+            </form>
         </td>
-        <td><form action="#" th:action="@{/deleteProject1/{id}(id=${project.id})}" th:object="${project}" method="post" >
-            <p> <input  type="submit"   value="delete"></p>
-        </form>
+        <td>
+            <form action="#" th:action="@{/deleteProject1/{id}(id=${project.id})}" th:object="${project}" method="post">
+                <p><input class="action" type="submit" value="delete"></p>
+            </form>
         </td>
     </tr>
     </tbody>
 </table>
-
-<div th:if="${role == 1}">
-<form action="/newUser" method="get">
-    <input id="submit" type="submit" value="Add new User" />
-</form>
-<form action="/findProjects" method="get">
-    <input id="submit" type="submit" value="Find all Projects" />
-</form>
 </div>
-<form action="/newProject" method="get">
-    <input id="submit" type="submit" value="Add new Project" />
-</form>
-<form action="/logout" method="get">
-    <input id="submit" type="submit" value="Logout" />
-</form>
+<div class="sidenav">
+    <img src="/css/images/img.png">
+    <p class="username" th:text="${username1}"></p>
+    <div th:if="${role == 1}">
+        <form action="/newUser" method="get">
+            <input class="menu" id="submit" type="submit" value="Add new User"/>
+        </form>
+        <form action="/findProjects" method="get">
+            <input class="menu" id="submit" type="submit" value="Find all Projects"/>
+        </form>
+    </div>
+    <form action="/newProject" method="get">
+        <input class="menu" id="submit" type="submit" value="Add new Project"/>
+    </form>
+</div>
 
 
 </body>

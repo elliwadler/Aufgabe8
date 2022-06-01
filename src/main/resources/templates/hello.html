@@ -7,11 +7,14 @@
 <body>
 
 <div class="container">
-
     <div class="login-content">
-        <form action="#" th:action="@{/test}"  method="post" class="form-login">
-            <h2 class="title">Welcome</h2>
-            <div class="input-div one">
+        <form action="${loginUrl}" method="post">
+        <h2 class="title">Welcome</h2>
+            <c:if test="${param.error != null}">
+                <p>
+                    Invalid username and password.
+                </p>
+                <div class="input-div one">
                 <div class="i">
                     <i class="fas fa-user"></i>
                 </div>

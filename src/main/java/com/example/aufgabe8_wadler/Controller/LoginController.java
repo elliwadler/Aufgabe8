@@ -7,6 +7,9 @@ import com.example.aufgabe8_wadler.exception.ApiRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -24,7 +27,7 @@ public class LoginController {
         this.studentRepository = studentRepository;
     }
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String login(){
         return "login";
     }
