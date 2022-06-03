@@ -68,7 +68,7 @@ public class StudentController {
 
         model.addAttribute("level", level);
 
-        return "OpenProjects";
+        return "openProjects";
     }
 
     //Sign in for project
@@ -98,9 +98,7 @@ public class StudentController {
             studentRepository.updateLevel(3, ID);
         }
 
-        /**
-         @TODO move Project not delete
-         **/
+        //finished projects will be deleted
 
         projectRepository.deleteById(id);
 

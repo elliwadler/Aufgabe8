@@ -13,12 +13,15 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
 public class Student extends User{
 
-    int level;
+    private int level;
+
     @OneToOne(mappedBy = "student", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Project project;

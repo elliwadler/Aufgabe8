@@ -161,14 +161,14 @@ public class LeaderController {
         User newUser = new User();
         model.addAttribute("user", newUser);
         model.addAttribute("error", false);
-        return "NewUser";
+        return "newUser";
     }
     @GetMapping("/newUser-error")
     public String newStudentError(Model model) {
         User newUser = new User();
         model.addAttribute("user", newUser);
         model.addAttribute("error", true);
-        return "NewUser";
+        return "newUser";
     }
 
     @PostMapping("/saveUser")
@@ -188,7 +188,7 @@ public class LeaderController {
         Project newProject = new Project();
         model.addAttribute("project", newProject);
         model.addAttribute("error", false);
-        return "NewProject";
+        return "newProject";
     }
     @GetMapping("/newProject-error")
     public String newProjectError(Model model) {
@@ -196,7 +196,7 @@ public class LeaderController {
         Project newProject = new Project();
         model.addAttribute("project", newProject);
         model.addAttribute("error", true);
-        return "NewProject";
+        return "newProject";
     }
 
     @PostMapping("/saveProject")
@@ -284,7 +284,7 @@ public class LeaderController {
         projects = projectRepository.findAll();
         model.addAttribute("projects", projects);
 
-        return "FindProjects";
+        return "findProjects";
     }
 
 }

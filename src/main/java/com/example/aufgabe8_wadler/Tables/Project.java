@@ -44,7 +44,6 @@ public class Project {
 
     private int type;
 
-
     public Project() {
     }
 

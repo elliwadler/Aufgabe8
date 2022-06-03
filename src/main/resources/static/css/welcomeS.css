@@ -30,7 +30,7 @@ h1{
     z-index: 1;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to bottom right, #ceabff, #5916b4);
+    background-image: linear-gradient(to bottom right, #fccd7c, #bb8c3d);
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -97,7 +97,7 @@ h1{
 }
 .action{
     color:black;
-    background-color:  #ceabff;
+    background-color: #fccd7c;
     background-repeat:no-repeat;
     border: none;
     border-radius: 15px;
@@ -127,7 +127,7 @@ img{
 }
 .action:hover{
     color: #ffffff;
-    background-color: #5916b4;
+    background-color:#bb8c3d;
     border-radius: 20px;
     transform: scale(1.2);
 }
@@ -149,7 +149,7 @@ tr{
     width: auto;
 }
 tr:hover{
-    background-color: #f3ecff;
+    background-color: rgba(255, 207, 128, 0.27);
 }
 td{
     text-align: center;
