@@ -28,13 +28,13 @@ public class UserService {
     }
 
     public void addNewUser(User user, int role){
-        if(role==1){
-            Student student = new Student(user.getLastName(),user.getFirstName(), user.getUsername(), user.getPassword());
-            studentRepository.save(student);
-        }
-        else{
-            Leader leader = new Leader(user.getLastName(),user.getFirstName(), user.getUsername(), user.getPassword());
-            leaderRepository.save(leader);
-        }
+            if (role == 1) {
+                Student student = new Student(user.getLastName(), user.getFirstName(), user.getUsername(), user.getPassword());
+                studentRepository.save(student);
+            } else {
+                Leader leader = new Leader(user.getLastName(), user.getFirstName(), user.getUsername(), user.getPassword());
+                leaderRepository.save(leader);
+            }
+
     }
 }

@@ -172,11 +172,11 @@ public class LeaderController {
     }
 
     @PostMapping("/saveUser")
-    public String saveStudent(@ModelAttribute("user") User newUser, @RequestParam int type){
+    public String saveStudent(@ModelAttribute("user") User user, @RequestParam int type){
         try {
-            userService.addNewUser(newUser, type);
+           userService.addNewUser(user, type);
         }
-        catch(IllegalStateException e){
+        catch(Exception e){
             return "redirect:/newUser-error";
         }
         return "redirect:/WelcomeLeader";
