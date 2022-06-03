@@ -1,3 +1,10 @@
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
 package com.example.aufgabe8_wadler.Tables;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -54,7 +61,6 @@ public class Project {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
-        this.examDate = examDate;
         this.leader = leader;
         this.type = 2;
     }

@@ -1,3 +1,10 @@
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
 package com.example.aufgabe8_wadler.exception;
 
 import org.springframework.http.HttpStatus;

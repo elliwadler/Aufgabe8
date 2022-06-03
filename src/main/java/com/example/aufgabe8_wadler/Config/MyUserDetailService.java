@@ -1,8 +1,14 @@
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
 package com.example.aufgabe8_wadler.Config;
 
-import com.example.aufgabe8_wadler.Config.MyUserDetails;
 import com.example.aufgabe8_wadler.Tables.User;
-import com.example.aufgabe8_wadler.UserRepository;
+import com.example.aufgabe8_wadler.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

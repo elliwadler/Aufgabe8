@@ -9,7 +9,6 @@
              const pass1 = document.getElementById("pass1").value;
              const pass2 = document.getElementById("pass2").value;
              if(pass1 !=  pass2) {
-                alert('Error, cant do that');
                  document.getElementById("save").disabled = true;
                  document.getElementById("error").style.display = "block";
             }
@@ -29,6 +28,14 @@
             <table>
                 <tr>
                     <td colspan="2"> <h1>Create a new User</h1></td>
+                </tr>
+                <td colspan="2">
+                    <p class="error" th:if="${error}">A user with this username already exists!</p>
+                </td>
+                <tr id="error" style="display: none; font-weight: bold; color:#860000">
+                    <td colspan="2">
+                        <p class="error">Passwords are not equal!</p>
+                    </td>
                 </tr>
                 <tr>
                     <td>Role:</td>
@@ -53,21 +60,14 @@
                 </tr>
                 <tr>
                     <td>Password:</td>
-                    <td><input type="text" id="pass1" th:field="*{password}" required="required"/></td>
+                    <td><input type="password" id="pass1" th:field="*{password}" required="required"/></td>
                 </tr>
 
                 <tr>
                     <td>Confirm Password:</td>
-                    <td><input type="text"  onblur="check()" id="pass2" required="required"/></td>
+                    <td><input type="password"  onblur="check()" id="pass2" required="required"/></td>
                 </tr>
-                <tr id="error" style="display: none; font-weight: bold; color:#860000">
-                    <td>
-                        <p></p>
-                    </td>
-                    <td>
-                        <p style=" font-size: 20px">Passwords are not equal!</p>
-                    </td>
-                </tr>
+
                 <tr>
                     <td><input  class ="action" id="save" type="submit" value="Save"/></td>
                     <td> <input class="logout" action="action"   type="button" onclick="history.go(-1);" value="back"/></td>

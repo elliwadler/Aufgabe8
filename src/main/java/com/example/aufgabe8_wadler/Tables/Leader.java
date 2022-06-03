@@ -1,3 +1,10 @@
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
 package com.example.aufgabe8_wadler.Tables;
 
 import org.springframework.data.relational.core.mapping.Table;
@@ -32,6 +39,14 @@ public class Leader extends User {
         this.maxM = maxM;
         this.role = role;
     }
+    public Leader(String lastName, String firstName, String username, String password) {
+        super(lastName, firstName, username, password);
+        this.maxP = 10;
+        this.maxB = 10;
+        this.maxM = 10;
+        this.role = 2;
+    }
+
 
     @Override
     public String toString() {

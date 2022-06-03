@@ -1,7 +1,13 @@
-package com.example.aufgabe8_wadler;
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
+package com.example.aufgabe8_wadler.repository;
 
 import com.example.aufgabe8_wadler.Tables.Leader;
-import com.example.aufgabe8_wadler.Tables.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

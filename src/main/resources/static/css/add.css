@@ -47,7 +47,7 @@ td{
     text-align: left;
 }
 .action{
-     color:black;
+     color: black;
      background-color: #8eced9;
      background-repeat:no-repeat;
      border: none;
@@ -58,7 +58,7 @@ td{
      font-weight: bold;
      font-size: large;
      padding: 0.3em;
-    width: 40%;
+     width: 70%;
  }
 .action:hover{
     color: #ffffff;
@@ -79,11 +79,15 @@ td{
     font-size: large;
     padding: 0.3em;
     margin: 0.5em;
-    width: 40%;
+    width: 50%;
 }
 .logout:hover{
     color: #ffffff;
     background-color: #fc7f7f;
     border-radius: 20px;
     transform: scale(1.2);
+}
+.error{
+    color: red;
+    font-size: 22px;
 }

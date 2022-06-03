@@ -1,12 +1,18 @@
-package com.example.aufgabe8_wadler;
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
 
-import com.example.aufgabe8_wadler.Tables.Project;
+package com.example.aufgabe8_wadler.service;
+
 import com.example.aufgabe8_wadler.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 
+@Service
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
@@ -15,16 +21,7 @@ public class ProjectService {
     public ProjectService(ProjectRepository projectRepository){
         this.projectRepository = projectRepository;
     }
-    public List<Project> all(){
-        return projectRepository.findAll();
-    }
-    public void addNewProject(Project project){
-        Optional<Project> projectOptional = projectRepository.findById(project.getId());
-        if(projectOptional.isPresent()){
-            throw new IllegalStateException("student has a active project!");
-        }
-        projectRepository.save(project);
-    }
+
 
     public void deleteProject(Long id) {
         boolean exists = projectRepository.existsById(id);
@@ -34,6 +31,4 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
-    public void updateUser(Long userID, String username) {
-    }
 }

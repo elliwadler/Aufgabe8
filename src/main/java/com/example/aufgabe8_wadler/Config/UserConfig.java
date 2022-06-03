@@ -1,3 +1,10 @@
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
 package com.example.aufgabe8_wadler.Config;
 
 import com.example.aufgabe8_wadler.repository.ProjectRepository;
@@ -5,7 +12,7 @@ import com.example.aufgabe8_wadler.Tables.Leader;
 import com.example.aufgabe8_wadler.Tables.Project;
 import com.example.aufgabe8_wadler.Tables.Student;
 import com.example.aufgabe8_wadler.Tables.User;
-import com.example.aufgabe8_wadler.UserRepository;
+import com.example.aufgabe8_wadler.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -62,6 +69,7 @@ public class UserConfig {
         return driverManagerDataSource;
     }
 
+    //For customized error message
     @ControllerAdvice
     public class ErrorController {
 

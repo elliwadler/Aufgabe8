@@ -1,3 +1,10 @@
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
 package com.example.aufgabe8_wadler.Config;
 
 import com.example.aufgabe8_wadler.Tables.User;
@@ -7,14 +14,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+
 
 public class MyUserDetails implements UserDetails {
 
     private String userName;
     private String password;
-    private boolean active;
-    private List<GrantedAuthority> authorities;
 
     public MyUserDetails(User user){
         this.userName = user.getUsername();
@@ -22,7 +27,7 @@ public class MyUserDetails implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return Arrays.asList(new SimpleGrantedAuthority("nix"));
     }
 
     @Override

@@ -1,3 +1,10 @@
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
 package com.example.aufgabe8_wadler.repository;
 
 import com.example.aufgabe8_wadler.Tables.Student;
@@ -25,12 +32,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query("select u from Student u left join Project p on u.id = p.student.id where p.student.id is null and ?1 <= u.level")
     ArrayList<Student> findStudentWithoutProject(int type);
-
-    @Query("select u.id FROM Student u where u.username = ?1 and u.password=?2 ")
-    Long authenticate(String username, String password);
-
-    @Query("SELECT CASE WHEN COUNT(u)> 0 THEN true ELSE false END FROM Student u WHERE u.id = ?1")
-    boolean exists(Long id);
 
     @Transactional
     @Modifying

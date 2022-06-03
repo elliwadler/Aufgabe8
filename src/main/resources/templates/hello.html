@@ -3,17 +3,23 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="/css/loginStyle.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/css/js/Login.js"></script>
 </head>
 <body>
 
 <div class="container">
     <div class="login-content">
-        <form action="${loginUrl}" method="post">
-        <h2 class="title">Welcome</h2>
-            <c:if test="${param.error != null}">
-                <p>
-                    Invalid username and password.
-                </p>
+
+            <form th:action="@{/login}" method="post">
+                <h2 class="title">Welcome</h2>
+                <div class="div.error">
+                <p th:if="${loginError}" class="error">Wrong username or password</p>
+                </div>
+                <div class="div.logout">
+                    <p th:if="${logout}" class="logout">Successfully logged out!</p>
+                </div>
+
                 <div class="input-div one">
                 <div class="i">
                     <i class="fas fa-user"></i>
@@ -42,7 +48,6 @@
         </form>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/css/js/Login.js"></script>
+
 </body>
 </html>

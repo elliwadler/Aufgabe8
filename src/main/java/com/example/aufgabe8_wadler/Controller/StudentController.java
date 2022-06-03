@@ -1,3 +1,10 @@
+/*
+ * project management system
+ * Spring-boot, Thymeleaf, MySQL
+ * Author: Elisabeth Wadler
+ * Last Change: 03.06.2022
+ */
+
 package com.example.aufgabe8_wadler.Controller;
 
 import com.example.aufgabe8_wadler.repository.ProjectRepository;
@@ -26,6 +33,7 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
+    //Student WELCOMEPAGE
     @GetMapping("/WelcomeStudent")
     public String welcomeStudent(Model model, Principal p) {
         Student student = studentRepository.findStudentByUsername(p.getName()).get();
@@ -39,27 +47,23 @@ public class StudentController {
         return "student";
     }
 
+    //Find Projects where no student is assigned
     @GetMapping("/findOpenProject")
     public String findOpenProject(Model model, Principal p) {
-        ArrayList<Project> projects = new ArrayList<com.example.aufgabe8_wadler.Tables.Project>();
+        ArrayList<Project> projects = new ArrayList<>();
         ArrayList<Project> help;
 
         int level = studentRepository.findLevelByUsername(p.getName());
 
         for (int i = 1; i <= level; i++) {
             help = projectRepository.findOpenProjectsByType(i);
-            for (Project pr : help) {
-                projects.add(pr);
-            }
+            projects.addAll(help);
         }
         model.addAttribute("projects", projects);
 
         ArrayList<Project> projectsStudent;
         projectsStudent = projectRepository.findProjectByStudentID(studentRepository.findIdByUsername(p.getName()));
-        boolean addNew = false;
-        if (projectsStudent.size() < 1) {
-            addNew = true;
-        }
+        boolean addNew = projectsStudent.size() < 1;
         model.addAttribute("addNew", addNew);
 
         model.addAttribute("level", level);
@@ -67,24 +71,21 @@ public class StudentController {
         return "OpenProjects";
     }
 
+    //Sign in for project
     @PostMapping("/signProject/{id}")
-    public String signProject(@PathVariable("id") long id, Model model, Principal p) {
+    public String signProject(@PathVariable("id") long id, Principal p) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
 
-/**
- @TODO fix to update
- **/
-
-        projectRepository.delete(projectRepository.getById(id));
         project.setStudent(studentRepository.findStudentByUsername(p.getName()).get());
         projectRepository.save(project);
 
         return "redirect:/WelcomeStudent";
     }
 
+    //when project is finished
     @PostMapping("/deleteProject/{id}")
-    public String doneProject(@PathVariable("id") long id, Model model, Principal p) {
+    public String doneProject(@PathVariable("id") long id, Principal p) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Project:" + id));
 
